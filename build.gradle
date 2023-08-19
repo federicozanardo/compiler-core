@@ -4,7 +4,8 @@ plugins {
     // id "nebula.lint" version "18.1.0"
 }
 
-group = 'com.github.federicozanardo'
+// group = 'com.github.federicozanardo'
+group = 'compiler.core'
 version = '0.1.0'
 
 repositories {
