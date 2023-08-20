@@ -6,7 +6,6 @@ import lcp.lib.communication.module.channel.ChannelMessagePayload;
 import lcp.lib.communication.module.channel.ModuleChannel;
 import lcp.lib.communication.module.channel.responses.RequestNotFound;
 import models.contract.ContractCompiled;
-import models.contract.ContractToCompile;
 import models.dto.requests.CompileContract;
 import models.dto.responses.CompiledContract;
 import org.slf4j.Logger;

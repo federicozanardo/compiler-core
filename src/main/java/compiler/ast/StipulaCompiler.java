@@ -12,7 +12,6 @@ import lcp.lib.dfa.transitions.TransitionData;
 import lcp.lib.models.assets.Asset;
 import lombok.Getter;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;

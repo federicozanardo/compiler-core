@@ -1,6 +1,5 @@
 package models.contract;
 
-import lcp.lib.communication.module.channel.ChannelMessagePayload;
 import lcp.lib.datastructures.Triple;
 import lcp.lib.dfa.states.DfaState;
 import lcp.lib.dfa.states.FinalStates;
