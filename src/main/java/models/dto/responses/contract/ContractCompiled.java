@@ -1,9 +1,9 @@
 package models.dto.responses.contract;
 
-import dfa.states.DfaState;
-import dfa.states.FinalStates;
-import dfa.transitions.TransitionData;
 import lcp.lib.datastructures.Triple;
+import lcp.lib.dfa.states.DfaState;
+import lcp.lib.dfa.states.FinalStates;
+import lcp.lib.dfa.transitions.TransitionData;
 
 import java.io.Serializable;
 import java.util.ArrayList;

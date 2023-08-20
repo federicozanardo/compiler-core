@@ -6,11 +6,11 @@ import compiler.ast.TypeChecking;
 import compiler.ast.TypeInference;
 import compiler.lexer.StipulaLexer;
 import compiler.parser.StipulaParser;
-import dfa.states.DfaState;
-import dfa.states.FinalStates;
-import dfa.transitions.TransitionData;
 import lcp.lib.datastructures.Pair;
 import lcp.lib.datastructures.Triple;
+import lcp.lib.dfa.states.DfaState;
+import lcp.lib.dfa.states.FinalStates;
+import lcp.lib.dfa.transitions.TransitionData;
 import models.dto.requests.contract.ContractToCompile;
 import models.dto.responses.contract.ContractCompiled;
 import org.antlr.v4.runtime.ANTLRInputStream;
@@ -21,7 +21,6 @@ import org.antlr.v4.runtime.TokenStream;
 import org.antlr.v4.runtime.tree.ParseTree;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import storage.AssetsStorage;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -30,14 +29,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class Compiler {
+class Compiler {
     private static final Logger logger = LoggerFactory.getLogger(Compiler.class);
     private final ContractToCompile contractToCompile;
-    private final AssetsStorage assetsStorage;
+    //private final AssetsStorage assetsStorage;
 
-    public Compiler(ContractToCompile contractToCompile, AssetsStorage assetsStorage) {
+    public Compiler(ContractToCompile contractToCompile/*, AssetsStorage assetsStorage*/) {
         this.contractToCompile = contractToCompile;
-        this.assetsStorage = assetsStorage;
+        //this.assetsStorage = assetsStorage;
     }
 
     public ContractCompiled compile() throws IOException {
@@ -71,7 +70,7 @@ public class Compiler {
             Map<Pair<String, Integer>, Type> globalVariables = typeInference.getGlobalVariables();
 
             // Compile
-            StipulaCompiler stipulaCompiler = new StipulaCompiler(globalVariables, functionTypes, assetsStorage);
+            StipulaCompiler stipulaCompiler = new StipulaCompiler(globalVariables, functionTypes/*, assetsStorage*/);
             String bytecode = (String) stipulaCompiler.visit(parseTree);
             logger.info("compile: Compilation successful");
             logger.debug("compile: Bytecode => \n" + bytecode);

@@ -2,17 +2,15 @@ package compiler.ast;
 
 import compiler.parser.StipulaBaseVisitor;
 import compiler.parser.StipulaParser;
-import dfa.states.DfaState;
-import dfa.states.FinalStates;
-import dfa.transitions.ContractCallByEvent;
-import dfa.transitions.ContractCallByParty;
-import dfa.transitions.TransitionData;
-import exceptions.storage.AssetNotFoundException;
 import lcp.lib.datastructures.Pair;
 import lcp.lib.datastructures.Triple;
+import lcp.lib.dfa.states.DfaState;
+import lcp.lib.dfa.states.FinalStates;
+import lcp.lib.dfa.transitions.ContractCallByEvent;
+import lcp.lib.dfa.transitions.ContractCallByParty;
+import lcp.lib.dfa.transitions.TransitionData;
+import lcp.lib.models.assets.Asset;
 import lombok.Getter;
-import models.assets.Asset;
-import storage.AssetsStorage;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -31,14 +29,14 @@ public class StipulaCompiler extends StipulaBaseVisitor {
     private final HashSet<DfaState> failingStates;
     @Getter
     private final ArrayList<Triple<DfaState, DfaState, TransitionData>> transitions;
-    private final AssetsStorage assetsStorage;
+    //private final AssetsStorage assetsStorage;
 
     public StipulaCompiler(
             Map<Pair<String, Integer>, Type> globalVariables,
-            Map<String, ArrayList<String>> functionTypes,
-            AssetsStorage assetsStorage
+            Map<String, ArrayList<String>> functionTypes/*,
+            AssetsStorage assetsStorage*/
     ) {
-        this.assetsStorage = assetsStorage;
+        //this.assetsStorage = assetsStorage;
         this.parties = new ArrayList<>();
         this.globalVariables = globalVariables;
         this.functionTypes = functionTypes;
@@ -128,12 +126,13 @@ public class StipulaCompiler extends StipulaBaseVisitor {
 
                 Asset asset;
                 int numberOfDecimals = 2;
-                try {
+                // FIXME
+                /*try {
                     asset = this.assetsStorage.getAsset(assetType.getAssetId());
                     numberOfDecimals = asset.asset().getDecimals();
                 } catch (IOException | AssetNotFoundException ex) {
 
-                }
+                }*/
 
                 body.append("GINST ").append(assetType.getTypeName()).append(" ").append(globalVariable.getFirst()).append(" ").append(numberOfDecimals).append(" ").append(assetType.getAssetId()).append("\n");
             } else if (globalVariables.get(globalVariable).getTypeName().equals("real")) {
@@ -287,15 +286,14 @@ public class StipulaCompiler extends StipulaBaseVisitor {
             for (int i = 0; i < currentFunctionTypes.size(); i++) {
                 bytecode.append("PUSH ").append(currentFunctionTypes.get(i)).append(" :").append(arguments.get(i)).append("\n");
 
-                if (currentFunctionTypes.get(i).equals("asset")) {
-                    bytecode.append("AINST ").append(currentFunctionTypes.get(i)).append(" :").append(arguments.get(i)).append("\n");
-                } else if (currentFunctionTypes.get(i).equals("real")) {
-                    //bytecode += "AINST " + currentFunctionTypes.get(i) + " " + arguments.get(i) + " 2\n";
-                    bytecode.append("AINST ").append(currentFunctionTypes.get(i)).append(" :").append(arguments.get(i)).append("\n");
-                } else if (currentFunctionTypes.get(i).equals("*")) {
-                    bytecode.append("AINST ").append(currentFunctionTypes.get(i)).append(" :").append(arguments.get(i)).append("\n");
-                } else {
-                    bytecode.append("AINST ").append(currentFunctionTypes.get(i)).append(" ").append(arguments.get(i)).append("\n");
+                switch (currentFunctionTypes.get(i)) {
+                    case "asset", "*" ->
+                            bytecode.append("AINST ").append(currentFunctionTypes.get(i)).append(" :").append(arguments.get(i)).append("\n");
+                    case "real" ->
+                        //bytecode += "AINST " + currentFunctionTypes.get(i) + " " + arguments.get(i) + " 2\n";
+                            bytecode.append("AINST ").append(currentFunctionTypes.get(i)).append(" :").append(arguments.get(i)).append("\n");
+                    default ->
+                            bytecode.append("AINST ").append(currentFunctionTypes.get(i)).append(" ").append(arguments.get(i)).append("\n");
                 }
 
                 bytecode.append("ASTORE ").append(arguments.get(i)).append("\n");
@@ -1015,9 +1013,7 @@ public class StipulaCompiler extends StipulaBaseVisitor {
 
                         for (Pair<Expression, ArrayList<Statement>> pair : tmpRet) {
                             if (pair.getFirst() == null) {
-                                for (Statement stm : pair.getSecond()) {
-                                    tmpStat.add(stm);
-                                }
+                                tmpStat.addAll(pair.getSecond());
                             }
                         }
                     }
@@ -1035,9 +1031,7 @@ public class StipulaCompiler extends StipulaBaseVisitor {
 
                 for (Pair<Expression, ArrayList<Statement>> pair : tmpRet) {
                     if (pair.getFirst() == null) {
-                        for (Statement stm2 : pair.getSecond()) {
-                            tmpStat.add(stm2);
-                        }
+                        tmpStat.addAll(pair.getSecond());
                     }
                 }
             }
