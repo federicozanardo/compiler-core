@@ -11,8 +11,7 @@ import lcp.lib.datastructures.Triple;
 import lcp.lib.dfa.states.DfaState;
 import lcp.lib.dfa.states.FinalStates;
 import lcp.lib.dfa.transitions.TransitionData;
-import models.dto.requests.contract.ContractToCompile;
-import models.dto.responses.contract.ContractCompiled;
+import models.contract.ContractCompiled;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -29,22 +28,23 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Map;
 
-class Compiler {
-    private static final Logger logger = LoggerFactory.getLogger(Compiler.class);
-    private final ContractToCompile contractToCompile;
+class CompilerService {
+    private static final Logger logger = LoggerFactory.getLogger(CompilerService.class);
+    private final CompilerModule module;
+    //private final ContractToCompile contractToCompile;
     //private final AssetsStorage assetsStorage;
 
-    public Compiler(ContractToCompile contractToCompile/*, AssetsStorage assetsStorage*/) {
-        this.contractToCompile = contractToCompile;
+    public CompilerService(CompilerModule module/*, ContractToCompile contractToCompile, AssetsStorage assetsStorage*/) {
+        this.module = module;
+        //this.contractToCompile = contractToCompile;
         //this.assetsStorage = assetsStorage;
     }
 
-    public ContractCompiled compile() throws IOException {
-        logger.debug("compile: " + this.contractToCompile);
+    public ContractCompiled compile(String sourceCode) throws IOException {
+        logger.debug("compile: " + sourceCode);
         logger.info("compile: Compiling...");
-        String sourceCode = contractToCompile.sourceCode();
 
-        InputStream is = new ByteArrayInputStream(sourceCode.getBytes(StandardCharsets.UTF_8));
+                InputStream is = new ByteArrayInputStream(sourceCode.getBytes(StandardCharsets.UTF_8));
         ANTLRInputStream input = new ANTLRInputStream(is);
         StipulaLexer lexer = new StipulaLexer((CharStream) input);
         CommonTokenStream tokens = new CommonTokenStream((TokenSource) lexer);
