@@ -1,4 +1,4 @@
-package compiler.models.dto.requests;
+package compiler.models.dto.compilecontract;
 
 import compiler.models.contract.ContractToCompile;
 import lcp.lib.communication.module.channel.ChannelMessagePayload;

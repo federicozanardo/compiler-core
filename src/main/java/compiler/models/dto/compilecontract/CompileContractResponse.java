@@ -1,4 +1,4 @@
-package compiler.models.dto.responses;
+package compiler.models.dto.compilecontract;
 
 import compiler.models.contract.ContractCompiled;
 import lcp.lib.communication.module.channel.ChannelMessagePayload;
@@ -9,6 +9,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @ToString
-public class CompiledContractResponse extends ChannelMessagePayload {
+public class CompileContractResponse extends ChannelMessagePayload {
     private final ContractCompiled contractCompiled;
 }
