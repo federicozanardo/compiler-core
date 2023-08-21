@@ -1,8 +1,8 @@
 package compiler.module;
 
 import compiler.models.contract.ContractCompiled;
-import compiler.models.dto.requests.CompileContract;
-import compiler.models.dto.responses.CompiledContract;
+import compiler.models.dto.requests.CompileContractRequest;
+import compiler.models.dto.responses.CompiledContractResponse;
 import lcp.lib.communication.module.Module;
 import lcp.lib.communication.module.channel.ChannelMessage;
 import lcp.lib.communication.module.channel.ChannelMessagePayload;
@@ -55,10 +55,10 @@ public class CompilerModule extends Module {
     public ChannelMessage receiveAndResponse(ChannelMessage message) {
         logger.debug("[{}] from: {}, payload: {}", new Object() {}.getClass().getEnclosingMethod().getName(), message.getSenderModuleId(), message.getPayload());
 
-        if (message.getPayload() instanceof CompileContract) {
+        if (message.getPayload() instanceof CompileContractRequest) {
             try {
-                ContractCompiled contractCompiled = service.compile(((CompileContract) message.getPayload()).getContractToCompile().getSourceCode());
-                return new ChannelMessage(this.getId(), new CompiledContract(contractCompiled));
+                ContractCompiled contractCompiled = service.compile(((CompileContractRequest) message.getPayload()).getContractToCompile().getSourceCode());
+                return new ChannelMessage(this.getId(), new CompiledContractResponse(contractCompiled));
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

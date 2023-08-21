@@ -9,6 +9,6 @@ import lombok.ToString;
 @AllArgsConstructor
 @Getter
 @ToString
-public class CompiledContract extends ChannelMessagePayload {
+public class CompiledContractResponse extends ChannelMessagePayload {
     private final ContractCompiled contractCompiled;
 }
