@@ -1,4 +1,4 @@
-package compiler.ast;
+package compiler.module.ast;
 
 public class Statement {
     private double fract = 1;

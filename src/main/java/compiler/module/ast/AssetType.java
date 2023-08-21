@@ -1,4 +1,4 @@
-package compiler.ast;
+package compiler.module.ast;
 
 public class AssetType extends Type {
     private String assetId;

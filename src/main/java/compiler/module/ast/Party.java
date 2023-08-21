@@ -1,4 +1,4 @@
-package compiler.ast;
+package compiler.module.ast;
 
 public class Party extends Entity {
     private final String name;

@@ -1,4 +1,4 @@
-package compiler.parser;// Generated from Stipula.g4 by ANTLR 4.10
+package compiler.module.parser;// Generated from Stipula.g4 by ANTLR 4.10
 
 import org.antlr.v4.runtime.NoViableAltException;
 import org.antlr.v4.runtime.Parser;

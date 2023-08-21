@@ -1,4 +1,4 @@
-package compiler.ast;
+package compiler.module.ast;
 
 import lcp.lib.datastructures.Pair;
 

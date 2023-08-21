@@ -1,7 +1,7 @@
-package compiler.ast;
+package compiler.module.ast;
 
-import compiler.parser.StipulaBaseVisitor;
-import compiler.parser.StipulaParser;
+import compiler.module.parser.StipulaBaseVisitor;
+import compiler.module.parser.StipulaParser;
 import lcp.lib.datastructures.Pair;
 import lcp.lib.datastructures.Triple;
 import lcp.lib.dfa.states.DfaState;

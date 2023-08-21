@@ -1,4 +1,4 @@
-package compiler.ast;
+package compiler.module.ast;
 
 public class AssetEntity extends Entity {
     private final String name;

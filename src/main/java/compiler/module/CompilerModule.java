@@ -1,4 +1,4 @@
-package compiler;
+package compiler.module;
 
 import lcp.lib.communication.module.Module;
 import lcp.lib.communication.module.channel.ChannelMessage;

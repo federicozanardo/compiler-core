@@ -1,4 +1,4 @@
-package compiler.parser;// Generated from Stipula.g4 by ANTLR 4.10
+package compiler.module.parser;// Generated from Stipula.g4 by ANTLR 4.10
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.ErrorNode;

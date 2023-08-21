@@ -1,4 +1,4 @@
-package compiler.ast;
+package compiler.module.ast;
 
 public class GeneralType extends Type {
     private int val = 0;

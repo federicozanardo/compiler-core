@@ -1,11 +1,11 @@
-package compiler;
+package compiler.module;
 
-import compiler.ast.StipulaCompiler;
-import compiler.ast.Type;
-import compiler.ast.TypeChecking;
-import compiler.ast.TypeInference;
-import compiler.lexer.StipulaLexer;
-import compiler.parser.StipulaParser;
+import compiler.module.ast.StipulaCompiler;
+import compiler.module.ast.Type;
+import compiler.module.ast.TypeInference;
+import compiler.module.lexer.StipulaLexer;
+import compiler.module.ast.TypeChecking;
+import compiler.module.parser.StipulaParser;
 import lcp.lib.datastructures.Pair;
 import lcp.lib.datastructures.Triple;
 import lcp.lib.dfa.states.DfaState;
