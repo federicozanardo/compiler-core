@@ -1,4 +1,4 @@
-package models.contract;
+package compiler.models.contract;
 
 import lcp.lib.datastructures.Triple;
 import lcp.lib.dfa.states.DfaState;

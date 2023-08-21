@@ -1,4 +1,4 @@
-package constants;
+package compiler.constants;
 
 import java.io.File;
 

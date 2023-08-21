@@ -1,13 +1,13 @@
 package compiler.module;
 
+import compiler.models.contract.ContractCompiled;
+import compiler.models.dto.requests.CompileContract;
+import compiler.models.dto.responses.CompiledContract;
 import lcp.lib.communication.module.Module;
 import lcp.lib.communication.module.channel.ChannelMessage;
 import lcp.lib.communication.module.channel.ChannelMessagePayload;
 import lcp.lib.communication.module.channel.ModuleChannel;
 import lcp.lib.communication.module.channel.responses.RequestNotFound;
-import models.contract.ContractCompiled;
-import models.dto.requests.CompileContract;
-import models.dto.responses.CompiledContract;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -22,12 +22,12 @@ public class CompilerModule extends Module {
     }
 
     @Override
-    public void send(String receiverModuleId, ChannelMessagePayload channelMessagePayload) {
-        logger.debug("[{}] payload: {}", new Object() {}.getClass().getEnclosingMethod().getName(), channelMessagePayload);
+    public void send(String receiverModuleId, ChannelMessagePayload payload) {
+        logger.debug("[{}] payload: {}", new Object() {}.getClass().getEnclosingMethod().getName(), payload);
         ModuleChannel channel = this.findChannel(this.getId(), receiverModuleId);
 
         if (channel != null) {
-            channel.send(new ChannelMessage(this.getId(), channelMessagePayload));
+            channel.send(new ChannelMessage(this.getId(), payload));
         } else {
             logger.error("Impossible to find a channel with {}!", receiverModuleId);
         }
@@ -39,12 +39,12 @@ public class CompilerModule extends Module {
     }
 
     @Override
-    public ChannelMessage sendAndReceive(String receiverModuleId, ChannelMessagePayload channelMessagePayload) {
-        logger.debug("[{}] payload: {}", new Object() {}.getClass().getEnclosingMethod().getName(), channelMessagePayload);
+    public ChannelMessage sendAndReceive(String receiverModuleId, ChannelMessagePayload payload) {
+        logger.debug("[{}] payload: {}", new Object() {}.getClass().getEnclosingMethod().getName(), payload);
         ModuleChannel channel = this.findChannel(this.getId(), receiverModuleId);
 
         if (channel != null) {
-            return channel.sendAndReceive(new ChannelMessage(this.getId(), channelMessagePayload));
+            return channel.sendAndReceive(new ChannelMessage(this.getId(), payload));
         } else {
             logger.error("Impossible to find a channel with {}!", receiverModuleId);
             return null;

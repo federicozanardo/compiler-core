@@ -1,5 +1,6 @@
 package compiler.module;
 
+import compiler.models.contract.ContractCompiled;
 import compiler.module.ast.StipulaCompiler;
 import compiler.module.ast.Type;
 import compiler.module.ast.TypeInference;
@@ -11,7 +12,6 @@ import lcp.lib.datastructures.Triple;
 import lcp.lib.dfa.states.DfaState;
 import lcp.lib.dfa.states.FinalStates;
 import lcp.lib.dfa.transitions.TransitionData;
-import models.contract.ContractCompiled;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;

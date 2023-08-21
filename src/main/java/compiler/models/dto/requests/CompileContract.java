@@ -1,10 +1,10 @@
-package models.dto.requests;
+package compiler.models.dto.requests;
 
+import compiler.models.contract.ContractToCompile;
 import lcp.lib.communication.module.channel.ChannelMessagePayload;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.ToString;
-import models.contract.ContractToCompile;
 
 @AllArgsConstructor
 @Getter
