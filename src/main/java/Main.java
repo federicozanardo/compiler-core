@@ -7,7 +7,6 @@ import lcp.lib.exceptions.communication.module.RegisterModuleException;
 import lcp.lib.exceptions.communication.module.channel.RegisterChannelException;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.log4j.BasicConfigurator;
-import storage.models.dto.asset.getassetinfo.GetAssetInfoRequest;
 import storage.module.StorageModule;
 
 @Slf4j
@@ -17,11 +16,13 @@ public class Main {
 
         Core core = new Core();
 
+        String storageModuleClassName = StorageModule.class.getSimpleName();
+
         // Declare modules
-        CompilerModule compilerModule = new CompilerModule();
+        CompilerModule compilerModule = new CompilerModule(storageModuleClassName);
         StorageModule storageModule = new StorageModule();
 
-        storageModule.seed();
+        //storageModule.seed();
 
         // Setup channels
         try {
@@ -60,7 +61,7 @@ public class Main {
                 "        _\n" +
                 "    } ==> @End\n" +
                 "}\n";
-        
+
         log.debug(core.sendAndReceive(CompilerModule.class.getSimpleName(), new CompileContractRequest(new ContractToCompile(sourceCode))).toString());
     }
 }

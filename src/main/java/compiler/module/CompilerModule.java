@@ -17,8 +17,8 @@ public class CompilerModule extends Module {
     private final Logger logger = LoggerFactory.getLogger(this.getClass());
     private final CompilerService service;
 
-    public CompilerModule() {
-        this.service = new CompilerService(this);
+    public CompilerModule(String storageModuleClassName) {
+        this.service = new CompilerService(this, storageModuleClassName);
     }
 
     @Override
