@@ -60,6 +60,7 @@ public class CompilerModule extends Module {
                 ContractCompiled contractCompiled = service.compile(((CompileContractRequest) message.getPayload()).getContractToCompile().getSourceCode());
                 return new ChannelMessage(this.getId(), new CompileContractResponse(contractCompiled));
             } catch (IOException e) {
+                // TODO: handle it
                 throw new RuntimeException(e);
             }
         } else {

@@ -31,13 +31,9 @@ import java.util.Map;
 class CompilerService {
     private static final Logger logger = LoggerFactory.getLogger(CompilerService.class);
     private final CompilerModule module;
-    //private final ContractToCompile contractToCompile;
-    //private final AssetsStorage assetsStorage;
 
-    public CompilerService(CompilerModule module/*, ContractToCompile contractToCompile, AssetsStorage assetsStorage*/) {
+    public CompilerService(CompilerModule module) {
         this.module = module;
-        //this.contractToCompile = contractToCompile;
-        //this.assetsStorage = assetsStorage;
     }
 
     public ContractCompiled compile(String sourceCode) throws IOException {
@@ -70,7 +66,7 @@ class CompilerService {
             Map<Pair<String, Integer>, Type> globalVariables = typeInference.getGlobalVariables();
 
             // Compile
-            StipulaCompiler stipulaCompiler = new StipulaCompiler(globalVariables, functionTypes/*, assetsStorage*/);
+            StipulaCompiler stipulaCompiler = new StipulaCompiler(globalVariables, functionTypes, module);
             String bytecode = (String) stipulaCompiler.visit(parseTree);
             logger.info("compile: Compilation successful");
             logger.debug("compile: Bytecode => \n" + bytecode);

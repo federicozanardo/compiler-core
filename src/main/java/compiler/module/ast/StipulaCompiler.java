@@ -1,7 +1,10 @@
 package compiler.module.ast;
 
+import compiler.module.CompilerModule;
 import compiler.module.parser.StipulaBaseVisitor;
 import compiler.module.parser.StipulaParser;
+import lcp.lib.communication.module.channel.ChannelMessage;
+import lcp.lib.communication.module.channel.ChannelMessagePayload;
 import lcp.lib.datastructures.Pair;
 import lcp.lib.datastructures.Triple;
 import lcp.lib.dfa.states.DfaState;
@@ -11,7 +14,12 @@ import lcp.lib.dfa.transitions.ContractCallByParty;
 import lcp.lib.dfa.transitions.TransitionData;
 import lcp.lib.models.assets.Asset;
 import lombok.Getter;
+import storage.exceptions.AssetNotFoundException;
+import storage.models.dto.asset.getassetinfo.GetAssetInfoRequest;
+import storage.models.dto.asset.getassetinfo.GetAssetInfoResponse;
+import storage.module.StorageModule;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
@@ -28,14 +36,14 @@ public class StipulaCompiler extends StipulaBaseVisitor {
     private final HashSet<DfaState> failingStates;
     @Getter
     private final ArrayList<Triple<DfaState, DfaState, TransitionData>> transitions;
-    //private final AssetsStorage assetsStorage;
+    private final CompilerModule module;
 
     public StipulaCompiler(
             Map<Pair<String, Integer>, Type> globalVariables,
-            Map<String, ArrayList<String>> functionTypes/*,
-            AssetsStorage assetsStorage*/
+            Map<String, ArrayList<String>> functionTypes,
+            CompilerModule module
     ) {
-        //this.assetsStorage = assetsStorage;
+        this.module = module;
         this.parties = new ArrayList<>();
         this.globalVariables = globalVariables;
         this.functionTypes = functionTypes;
@@ -125,13 +133,17 @@ public class StipulaCompiler extends StipulaBaseVisitor {
 
                 Asset asset;
                 int numberOfDecimals = 2;
-                // FIXME
-                /*try {
-                    asset = this.assetsStorage.getAsset(assetType.getAssetId());
-                    numberOfDecimals = asset.asset().getDecimals();
-                } catch (IOException | AssetNotFoundException ex) {
 
-                }*/
+                // Call Storage service
+                ChannelMessage message = module.sendAndReceive(StorageModule.class.getSimpleName(), new GetAssetInfoRequest(assetType.getAssetId()));
+                ChannelMessagePayload payload = message.getPayload();
+
+                if (payload instanceof GetAssetInfoResponse) {
+                    asset = ((GetAssetInfoResponse) payload).getAssetInfo();
+                    numberOfDecimals = asset.getAsset().getDecimals();
+                } else {
+                    // TODO: handle it
+                }
 
                 body.append("GINST ").append(assetType.getTypeName()).append(" ").append(globalVariable.getFirst()).append(" ").append(numberOfDecimals).append(" ").append(assetType.getAssetId()).append("\n");
             } else if (globalVariables.get(globalVariable).getTypeName().equals("real")) {
