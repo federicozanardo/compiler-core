@@ -1,12 +1,14 @@
 package compiler.module.ast;
 
 import lcp.lib.datastructures.Pair;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class TypeInference {
+    @Getter
     private final Map<Pair<String, Integer>, Type> types;
     private final ArrayList<String> contractNames;
     private final ArrayList<Pair<String, ArrayList<Pair<String, Type>>>> functionParameters;
@@ -19,10 +21,6 @@ public class TypeInference {
         this.types = types;
         this.contractNames = contractNames;
         this.functionParameters = functionParameters;
-    }
-
-    public Map<Pair<String, Integer>, Type> getTypes() {
-        return types;
     }
 
     public Map<Pair<String, Integer>, Type> getGlobalVariables() {
@@ -197,11 +195,7 @@ public class TypeInference {
                 t2 = t1;
             }
         } else if (!(t2 instanceof GeneralType) && !(t1 instanceof GeneralType) && !t1.getTypeName().equals(t2.getTypeName())) {
-            if ((t1 instanceof AssetType && t2 instanceof RealType) || (t2 instanceof AssetType && t1 instanceof RealType)) {
-                correct = true;
-            } else {
-                correct = false;
-            }
+            correct = (t1 instanceof AssetType && t2 instanceof RealType) || (t2 instanceof AssetType && t1 instanceof RealType);
         }
 
         return correct;

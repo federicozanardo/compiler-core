@@ -3,6 +3,7 @@ package compiler.module.ast;
 import compiler.module.parser.StipulaBaseVisitor;
 import compiler.module.parser.StipulaParser;
 import lcp.lib.datastructures.Pair;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
@@ -13,17 +14,11 @@ public class TypeChecking extends StipulaBaseVisitor<Object> {
     private int numberOfTypes = 0;
     private Map<Pair<String, Integer>, Type> types = null;
     private int numberOfScope = 0;
+    @Getter
     private ArrayList<String> contractNames = null;
     private ArrayList<String> parties = null;
+    @Getter
     private final ArrayList<Pair<String, ArrayList<Pair<String, Type>>>> functionParameters = new ArrayList<Pair<String, ArrayList<Pair<String, Type>>>>();
-
-    public ArrayList<String> getContractNames() {
-        return contractNames;
-    }
-
-    public ArrayList<Pair<String, ArrayList<Pair<String, Type>>>> getFunctionParameters() {
-        return functionParameters;
-    }
 
     public void printMap() {
         System.out.println("printMap: types => " + types);
