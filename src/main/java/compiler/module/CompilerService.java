@@ -12,6 +12,7 @@ import lcp.lib.datastructures.Triple;
 import lcp.lib.dfa.states.DfaState;
 import lcp.lib.dfa.states.FinalStates;
 import lcp.lib.dfa.transitions.TransitionData;
+import lombok.AllArgsConstructor;
 import org.antlr.v4.runtime.ANTLRInputStream;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CommonTokenStream;
@@ -28,13 +29,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Map;
 
+@AllArgsConstructor
 class CompilerService {
     private static final Logger logger = LoggerFactory.getLogger(CompilerService.class);
     private final CompilerModule module;
-
-    public CompilerService(CompilerModule module) {
-        this.module = module;
-    }
+    private final String storageModuleClassName;
 
     public ContractCompiled compile(String sourceCode) throws IOException {
         logger.debug("compile: " + sourceCode);
@@ -66,7 +65,7 @@ class CompilerService {
             Map<Pair<String, Integer>, Type> globalVariables = typeInference.getGlobalVariables();
 
             // Compile
-            StipulaCompiler stipulaCompiler = new StipulaCompiler(globalVariables, functionTypes, module);
+            StipulaCompiler stipulaCompiler = new StipulaCompiler(globalVariables, functionTypes, module, storageModuleClassName);
             String bytecode = (String) stipulaCompiler.visit(parseTree);
             logger.info("compile: Compilation successful");
             logger.debug("compile: Bytecode => \n" + bytecode);

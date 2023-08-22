@@ -14,12 +14,9 @@ import lcp.lib.dfa.transitions.ContractCallByParty;
 import lcp.lib.dfa.transitions.TransitionData;
 import lcp.lib.models.assets.Asset;
 import lombok.Getter;
-import storage.exceptions.AssetNotFoundException;
 import storage.models.dto.asset.getassetinfo.GetAssetInfoRequest;
 import storage.models.dto.asset.getassetinfo.GetAssetInfoResponse;
-import storage.module.StorageModule;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Map;
@@ -37,13 +34,16 @@ public class StipulaCompiler extends StipulaBaseVisitor {
     @Getter
     private final ArrayList<Triple<DfaState, DfaState, TransitionData>> transitions;
     private final CompilerModule module;
+    private final String storageModuleClassName;
 
     public StipulaCompiler(
             Map<Pair<String, Integer>, Type> globalVariables,
             Map<String, ArrayList<String>> functionTypes,
-            CompilerModule module
+            CompilerModule module,
+            String storageModuleClassName
     ) {
         this.module = module;
+        this.storageModuleClassName = storageModuleClassName;
         this.parties = new ArrayList<>();
         this.globalVariables = globalVariables;
         this.functionTypes = functionTypes;
@@ -135,7 +135,7 @@ public class StipulaCompiler extends StipulaBaseVisitor {
                 int numberOfDecimals = 2;
 
                 // Call Storage service
-                ChannelMessage message = module.sendAndReceive(StorageModule.class.getSimpleName(), new GetAssetInfoRequest(assetType.getAssetId()));
+                ChannelMessage message = module.sendAndReceive(storageModuleClassName, new GetAssetInfoRequest(assetType.getAssetId()));
                 ChannelMessagePayload payload = message.getPayload();
 
                 if (payload instanceof GetAssetInfoResponse) {
