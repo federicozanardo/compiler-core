@@ -1,0 +1,3 @@
+[submodule "storage-core"]
+	path = storage-core
+	url = https://github.com/federicozanardo/storage-core

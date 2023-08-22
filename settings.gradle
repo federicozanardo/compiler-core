@@ -1,2 +1,4 @@
 rootProject.name = 'compiler-core'
 
+include ':compiler-core', ':storage-core'
+
