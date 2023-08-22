@@ -1,7 +1,10 @@
 package compiler.module.ast;
 
+import lombok.Getter;
+
+@Getter
 public class AssetType extends Type {
-    private String assetId;
+    private final String assetId;
 
     public AssetType(String assetId) {
         this.assetId = assetId;
@@ -13,7 +16,4 @@ public class AssetType extends Type {
         this.type = "asset";
     }
 
-    public String getAssetId() {
-        return assetId;
-    }
 }

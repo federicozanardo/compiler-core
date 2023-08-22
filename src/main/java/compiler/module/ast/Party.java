@@ -1,10 +1,15 @@
 package compiler.module.ast;
 
+import lombok.Getter;
+
 public class Party extends Entity {
     private final String name;
+    @Getter
     private String userId;
     private final AssetEntity valueAssetEntity = new AssetEntity();
+    @Getter
     private float value = 0;
+    @Getter
     private String valueStr = "";
 
     public Party(String n) {
@@ -13,10 +18,6 @@ public class Party extends Entity {
 
     public void setUserId(String s) {
         userId = s;
-    }
-
-    public String getUserId() {
-        return userId;
     }
 
     public void setValue(float v) {
@@ -35,16 +36,8 @@ public class Party extends Entity {
         valueStr = s;
     }
 
-    public float getValue() {
-        return value;
-    }
-
     public float getValueAsset() {
         return valueAssetEntity.getValue();
-    }
-
-    public String getValueStr() {
-        return valueStr;
     }
 
     public String getId() {

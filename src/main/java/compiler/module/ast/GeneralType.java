@@ -9,7 +9,7 @@ public class GeneralType extends Type {
 
     public GeneralType(int n) {
         val = n;
-        type = "Type" + String.valueOf(n);
+        type = "Type" + n;
     }
 
     public int getNumberType() {

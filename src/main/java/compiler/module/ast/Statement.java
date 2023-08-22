@@ -1,10 +1,16 @@
 package compiler.module.ast;
 
+import lombok.Getter;
+
 public class Statement {
+    @Getter
     private double fract = 1;
+    @Getter
     private final Entity leftExpression;
+    @Getter
     private final Entity rightExpression;
     private Entity fractExpression;
+    @Getter
     private final String operator;
 
     public Statement(Entity leftExpression, Entity rightExpression, String operator) {
@@ -28,28 +34,12 @@ public class Statement {
         fract = 0;
     }
 
-    public String getOperator() {
-        return operator;
-    }
-
-    public Entity getLeftExpression() {
-        return leftExpression;
-    }
-
-    public double getFract() {
-        return fract;
-    }
-
     public String getFractExpression() {
         return fractExpression.getId();
     }
 
     public boolean isFractExpressionNull() {
         return fractExpression == null;
-    }
-
-    public Entity getRightExpression() {
-        return rightExpression;
     }
 
     public void printStatement() {

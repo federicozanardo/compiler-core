@@ -1,10 +1,15 @@
 package compiler.module.ast;
 
+import lombok.Getter;
+
 public class Field extends Entity {
     private final String name;
+    @Getter
     private float value = 0;
+    @Getter
     private String valueStr = null;
     private boolean valueBool;
+    @Getter
     private Type type = null;
 
     public Field() {
@@ -30,20 +35,8 @@ public class Field extends Entity {
         type = t;
     }
 
-    public Type getType() {
-        return type;
-    }
-
     public void setValueStr(String s) {
         valueStr = s;
-    }
-
-    public float getValue() {
-        return value;
-    }
-
-    public String getValueStr() {
-        return valueStr;
     }
 
     public String getId() {

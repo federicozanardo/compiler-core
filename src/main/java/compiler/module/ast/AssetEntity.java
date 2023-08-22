@@ -1,8 +1,11 @@
 package compiler.module.ast;
 
+import lombok.Getter;
+
 public class AssetEntity extends Entity {
     private final String name;
     private float rawvalue;
+    @Getter
     private Type type;
 
     public AssetEntity() {
@@ -61,10 +64,6 @@ public class AssetEntity extends Entity {
 
     public float getValue() {
         return rawvalue;
-    }
-
-    public Type getType() {
-        return type;
     }
 
     public String getId() {

@@ -1,10 +1,15 @@
 package compiler.module.ast;
 
+import lombok.Getter;
+
 public class Expression {
     private Entity leftExpression = null;
     private Entity rightExpression = null;
+    @Getter
     private Expression leftComplexExpression = null;
+    @Getter
     private Expression rightComplexExpression = null;
+    @Getter
     private final String operator;
 
     public Expression(Entity leftExpression, Entity rightExpression, String operator) {
@@ -108,18 +113,6 @@ public class Expression {
 
     public Entity getRight() {
         return rightExpression;
-    }
-
-    public String getOperator() {
-        return operator;
-    }
-
-    public Expression getLeftComplexExpression() {
-        return leftComplexExpression;
-    }
-
-    public Expression getRightComplexExpression() {
-        return rightComplexExpression;
     }
 
     @Override

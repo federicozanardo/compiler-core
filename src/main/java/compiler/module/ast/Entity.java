@@ -1,8 +1,12 @@
 package compiler.module.ast;
 
+import lombok.Getter;
+
 class Entity {
     public final String name;
+    @Getter
     private float value = 0;
+    @Getter
     private String valueStr = "";
 
     public Entity() {
@@ -24,14 +28,6 @@ class Entity {
 
     public void setValueStr(String str) {
         valueStr = str;
-    }
-
-    public String getValueStr() {
-        return valueStr;
-    }
-
-    public float getValue() {
-        return value;
     }
 
     public String getId() {

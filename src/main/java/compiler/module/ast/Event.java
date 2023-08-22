@@ -1,6 +1,7 @@
 package compiler.module.ast;
 
 import lcp.lib.datastructures.Pair;
+import lombok.Getter;
 
 import java.util.ArrayList;
 import java.util.Timer;
@@ -10,7 +11,9 @@ public class Event {
     private final int MINS = 60;
     private final String sourceState;
     private final String destinationState;
+    @Getter
     private final ArrayList<Pair<Expression, ArrayList<Statement>>> statements;
+    @Getter
     private final Expression expression;
     private Timer timer;
     private StipulaContract stipulaContract;
@@ -32,14 +35,6 @@ public class Event {
 
     public String getEndState() {
         return destinationState;
-    }
-
-    public ArrayList<Pair<Expression, ArrayList<Statement>>> getStatements() {
-        return statements;
-    }
-
-    public Expression getExpression() {
-        return expression;
     }
 
     public String printEvent() {
