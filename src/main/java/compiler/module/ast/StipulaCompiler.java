@@ -14,8 +14,8 @@ import lcp.lib.dfa.transitions.ContractCallByParty;
 import lcp.lib.dfa.transitions.TransitionData;
 import lcp.lib.models.assets.Asset;
 import lombok.Getter;
-import storage.models.dto.asset.getassetinfo.GetAssetInfoRequest;
-import storage.models.dto.asset.getassetinfo.GetAssetInfoResponse;
+import storage.core.lib.models.dto.asset.getassetinfo.GetAssetInfoRequest;
+import storage.core.lib.models.dto.asset.getassetinfo.GetAssetInfoResponse;
 
 import java.util.ArrayList;
 import java.util.HashSet;
