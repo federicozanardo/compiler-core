@@ -15,7 +15,7 @@ repositories {
 dependencies {
     // Add libraries
     implementation 'com.github.federicozanardo:lcp-lib:v0.1.33'
-    implementation 'com.github.federicozanardo:storage-core-lib:v0.1.0'
+    implementation 'com.github.federicozanardo:storage-core-lib:v0.1.5'
 
     implementation 'org.slf4j:slf4j-log4j12:2.0.7'
 
