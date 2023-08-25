@@ -22,36 +22,9 @@ public class CompilerModule extends Module {
     }
 
     @Override
-    public void send(String receiverModuleId, ChannelMessagePayload payload) {
-        logger.debug("[{}] payload: {}", new Object() {
-        }.getClass().getEnclosingMethod().getName(), payload);
-        ModuleChannel channel = this.findChannel(this.getId(), receiverModuleId);
-
-        if (channel != null) {
-            channel.send(new ChannelMessage(this.getId(), payload));
-        } else {
-            logger.error("Impossible to find a channel with {}!", receiverModuleId);
-        }
-    }
-
-    @Override
     public void receive(ChannelMessage message) {
         logger.debug("[{}] from: {}, payload: {}", new Object() {
         }.getClass().getEnclosingMethod().getName(), message.getSenderModuleId(), message.getPayload());
-    }
-
-    @Override
-    public ChannelMessage sendAndReceive(String receiverModuleId, ChannelMessagePayload payload) {
-        logger.debug("[{}] payload: {}", new Object() {
-        }.getClass().getEnclosingMethod().getName(), payload);
-        ModuleChannel channel = this.findChannel(this.getId(), receiverModuleId);
-
-        if (channel != null) {
-            return channel.sendAndReceive(new ChannelMessage(this.getId(), payload));
-        } else {
-            logger.error("Impossible to find a channel with {}!", receiverModuleId);
-            return null;
-        }
     }
 
     @Override
